@@ -70,7 +70,7 @@ def login_view(request):
     return render(request, "login.html", {"form": LoginForm})           
 
 def logout_view(request):
-    logout()
+    logout(request)
     return HttpResponseRedirect(reverse("login"))
 
 def concerts(request):
