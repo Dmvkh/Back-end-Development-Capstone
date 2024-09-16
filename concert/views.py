@@ -25,7 +25,7 @@ def signup(request):
                 return render(request, "signup.html", {"form": SignUpForm, "message": "user already exist"})
             else:
                 user = User.objects.create(username=username, password=make_password(password))
-                django.contrib.auth.login(request, user)
+                login(request, user)
                 return HttpResponseRedirect(reverse("index"))
         except User.DoesNotExist:
             return render(request, "signup.html", {"form": SignUpForm})
@@ -63,14 +63,14 @@ def login_view(request):
             user = User.objects.filter(username=username)
 
             if user.check_password(password):
-                django.contrib.auth.login(request, user)
+                login(request, user)
                 return HttpResponseRedirect(reverse("index"))
         except User.DoesNotExist:
             return render(request, "login.html", {"form": LoginForm})
     return render(request, "login.html", {"form": LoginForm})           
 
 def logout_view(request):
-    django.contrib.auth.logout()
+    logout()
     return HttpResponseRedirect(reverse("login"))
 
 def concerts(request):
