@@ -60,7 +60,7 @@ def login_view(request):
         password = request.POST.get("password")
 
         try:
-            user = User.objects.filter(username=username)
+            user = User.objects.get(username=username)
 
             if user.check_password(password):
                 login(request, user)
